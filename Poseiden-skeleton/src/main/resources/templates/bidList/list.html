@@ -1,10 +1,10 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" 
+<html xmlns="http://www.w3.org/1999/xhtml"
 	  xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8"/>
-<title>Home</title>
-<link rel="stylesheet" href="../../css/bootstrap.min.css" >
+	<meta charset="utf-8"/>
+	<title>Home</title>
+	<link rel="stylesheet" href="../../css/bootstrap.min.css" >
 </head>
 <body>
 <div class="container">
@@ -28,16 +28,40 @@
 		<a href="/bidList/add" class="btn btn-primary btn-sm">Add New</a>
 		<table class="table table-bordered">
 			<thead>
-				<tr>
-					<th>Id</th>
-					<th>Account</th>
-					<th>Type</th>
-					<th>Bid Quantity</th>
-					<th>Action</th>
-				</tr>
+			<tr>
+				<th>Id</th>
+				<th>Account</th>
+				<th>Type</th>
+				<th>Bid Quantity</th>
+				<th>Action</th>
+			</tr>
 			</thead>
 			<tbody>
-				<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
+			<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
+			<th:block th:each="bid : ${bids}">
+				<tr>
+					<td th:text="${bid.bidListId}"></td>
+					<td th:text="${bid.account}"></td>
+					<td th:text="${bid.type}"></td>
+					<td th:text="${bid.bidQuantity}"></td>
+					<td><a href="#"  th:href="@{'/bidList/update/' + ${bid.bidListId}}">Edit</a>
+						|
+						<a href="#"  th:href="@{'/bidList/delete/' + ${bid.bidListId}}">Delete</a></td>
+					<!--
+                                            <a th:href="@{'/category/edit/' + ${category.id}}">view</a>
+                    -->
+
+				</tr>
+			</th:block>
+
+			<!--<th:block th:each="transfer : ${transfers}">
+                <tr>
+                    <td th:text="${transfer.accountReceiver.user.username}"></td>
+                    <td th:text="${transfer.description}"></td>
+                    <td th:text="${transfer.amount} + ' €'"></td>
+                    <td th:text="${transfer.accountReceiver.id == userAccountId} ? 'Received' : 'Sent'"></td>
+                </tr>
+            </th:block>-->
 			</tbody>
 		</table>
 	</div>
