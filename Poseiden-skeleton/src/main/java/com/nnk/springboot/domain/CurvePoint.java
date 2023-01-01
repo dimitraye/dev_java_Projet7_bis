@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import javax.validation.constraints.Digits;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,6 +19,7 @@ public class CurvePoint {
     // TODO: Map columns in data table CURVEPOINT with corresponding java fields
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
+    @Digits(integer = 4, fraction = 0)
     private Integer id;
 
     @NotNull(message = "must not be null")

@@ -22,6 +22,7 @@ public class BidList {
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
+  @Digits(integer = 4, fraction = 0)
   private Integer bidListId;
 
   @Size(min = 1, max = 30)
