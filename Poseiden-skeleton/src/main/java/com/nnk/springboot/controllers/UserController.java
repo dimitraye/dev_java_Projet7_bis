@@ -28,7 +28,7 @@ public class UserController {
     public String home(Model model)
     {
 
-        model.addAttribute("users",userService.findAll());
+        model.addAttribute("users", userService.findAll());
         return "user/list";
     }
 
