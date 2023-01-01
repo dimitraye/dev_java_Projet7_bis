@@ -1,6 +1,7 @@
 package com.nnk.springboot.domain;
 
 import javax.persistence.*;
+import javax.validation.constraints.Digits;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
 import javax.validation.constraints.Size;
@@ -19,6 +20,7 @@ public class Trade {
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
+  @Digits(integer = 4, fraction = 0)
   private Integer tradeId;
   @Size(min = 1, max = 30)
   @NotBlank(message = "account is mandatory")
