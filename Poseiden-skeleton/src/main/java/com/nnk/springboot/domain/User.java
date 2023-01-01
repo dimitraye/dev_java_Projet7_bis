@@ -2,6 +2,7 @@ package com.nnk.springboot.domain;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.Size;
 
 @Entity
 @Table(name = "users")
@@ -9,12 +10,20 @@ public class User {
     @Id
     @GeneratedValue(strategy= GenerationType.IDENTITY)
     private Integer id;
+
+    @Size(min = 1, max = 125)
     @NotBlank(message = "Username is mandatory")
     private String username;
+
+    @Size(min = 1, max = 125)
     @NotBlank(message = "Password is mandatory")
     private String password;
+
+    @Size(min = 1, max = 125)
     @NotBlank(message = "FullName is mandatory")
     private String fullname;
+
+    @Size(min = 1, max = 125)
     @NotBlank(message = "Role is mandatory")
     private String role;
 

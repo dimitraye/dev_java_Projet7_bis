@@ -1,5 +1,6 @@
 package com.nnk.springboot.domain;
 
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -23,8 +24,12 @@ public class BidList {
   @GeneratedValue(strategy= GenerationType.IDENTITY)
   private Integer bidListId;
 
+  @Size(min = 1, max = 30)
+  @NotBlank(message = "Username is mandatory")
   private String account;
 
+  @Size(min = 1, max = 30)
+  @NotBlank(message = "Username is mandatory")
   private String type;
 
   private Double bidQuantity;
@@ -35,33 +40,45 @@ public class BidList {
 
   private Double ask;
 
+  @Size(min = 1, max = 125)
   private String benchmark;
 
   private Timestamp bidListDate;
 
+  //TODO : voir commentary, commentary n'existe âs dans le fichier SQL alors qu'il est présent dans le pdf  "FINACIAL_ENTITIES_JPO"
   private String commentary;
 
+  @Size(min = 1, max = 125)
   private String security;
 
+  @Size(min = 1, max = 10)
   private String status;
 
+  @Size(min = 1, max = 125)
   private String trader;
 
+  @Size(min = 1, max = 125)
   private String book;
 
+  @Size(min = 1, max = 125)
   private String creationName;
 
   private Timestamp creationDate;
 
+  @Size(min = 1, max = 125)
   private String revisionName;
 
   private Timestamp revisionDate;
 
+  @Size(min = 1, max = 125)
   private String dealName;
 
+  @Size(min = 1, max = 125)
   private String dealType;
 
+  @Size(min = 1, max = 125)
   private String sourceListId;
 
+  @Size(min = 1, max = 125)
   private String side;
 }

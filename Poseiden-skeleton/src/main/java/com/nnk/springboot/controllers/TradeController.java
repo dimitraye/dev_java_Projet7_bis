@@ -63,7 +63,7 @@ public class TradeController {
             return "trade/update";
         }
 
-        trade.setId(id);
+        trade.setTradeId(id);
         tradeService.save(trade);
         model.addAttribute("trades", tradeService.findAll());
 

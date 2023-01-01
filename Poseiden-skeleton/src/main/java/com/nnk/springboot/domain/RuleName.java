@@ -3,6 +3,7 @@ package com.nnk.springboot.domain;
 import javax.persistence.*;
 import javax.validation.constraints.NotBlank;
 import java.sql.Timestamp;
+import javax.validation.constraints.Size;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -18,10 +19,16 @@ public class RuleName {
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
   private Integer id;
+  @Size(min = 1, max = 125)
   String name;
+  @Size(min = 1, max = 125)
   String description;
+  @Size(min = 1, max = 125)
   String json;
+  @Size(min = 1, max = 512)
   String template;
+  @Size(min = 1, max = 125)
   String sqlStr;
+  @Size(min = 1, max = 125)
   String sqlPart;
 }
