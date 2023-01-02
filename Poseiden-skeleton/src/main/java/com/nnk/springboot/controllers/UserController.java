@@ -4,6 +4,7 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.IUserService;
 import java.util.List;
+import lombok.extern.slf4j.Slf4j;
 import org.passay.PasswordData;
 import org.passay.PasswordValidator;
 import org.passay.RuleResult;
@@ -21,6 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+@Slf4j
 @Controller
 public class UserController {
     @Autowired
@@ -49,6 +51,7 @@ public class UserController {
         RuleResult resultForPassword = validator.validate(new PasswordData(user.getPassword()));
         if (!resultForPassword.isValid()) {
             validator.getMessages(resultForPassword).forEach(errorMessage -> {
+                log.error("The password is incorrect");
                 result.addError(new FieldError("user", "password", errorMessage));
             });
         }
@@ -59,6 +62,7 @@ public class UserController {
 
         User userFromDB = userService.findByUserName(user.getUsername()).orElse(null);
         if (userFromDB != null){
+            log.error("The username : " + user.getUsername() + " is already registered in the data base");
             model.addAttribute("error",
                 "The username : " + user.getUsername() + " is already registered in the data base.");
             return "/user/add";
@@ -67,6 +71,7 @@ public class UserController {
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
         user.setPassword(encoder.encode(user.getPassword()));
         userService.save(user);
+        log.info("The user has been saved");
         model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
@@ -87,6 +92,7 @@ public class UserController {
         RuleResult resultForPassword = validator.validate(new PasswordData(user.getPassword()));
         if (!resultForPassword.isValid()) {
             validator.getMessages(resultForPassword).forEach(errorMessage -> {
+                log.error("The password is incorrect");
                 result.addError(new FieldError("user", "password", errorMessage));
             });
         }
@@ -97,6 +103,7 @@ public class UserController {
 
         User userFromDB = userService.findByUserName(user.getUsername()).orElse(null);
         if (userFromDB != null && (userFromDB.getId() != id) ){
+            log.error("The username : " + user.getUsername() + " is already registered in the data base.");
             model.addAttribute("error",
                 "The username : " + user.getUsername() + " is already registered in the data base.");
             return "/user/add";
@@ -106,6 +113,7 @@ public class UserController {
         user.setPassword(encoder.encode(user.getPassword()));
         user.setId(id);
         userService.save(user);
+        log.info("The user has been saved");
         model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }
@@ -115,6 +123,7 @@ public class UserController {
         User user = userService.findById(id).
             orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.delete(user);
+        log.info("The user has been deleted");
         model.addAttribute("users", userService.findAll());
         return "redirect:/user/list";
     }

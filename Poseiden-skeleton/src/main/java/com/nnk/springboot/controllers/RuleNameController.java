@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.RuleName;
 import com.nnk.springboot.services.IRuleNameService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class RuleNameController {
     // TODO: Inject RuleName service
@@ -38,6 +40,7 @@ public class RuleNameController {
         // TODO: check data valid and save to db, after saving return RuleName list
         if (!result.hasErrors()) {
             ruleNameService.save(ruleName);
+            log.info("The ruleName has been saved");
             model.addAttribute("ruleNames", ruleNameService.findAll());
             return "redirect:/ruleName/list";
         }
@@ -65,6 +68,7 @@ public class RuleNameController {
 
         ruleName.setId(id);
         ruleNameService.save(ruleName);
+        log.info("The ruleName has been saved");
         model.addAttribute("ruleNames", ruleNameService.findAll());
 
         return "redirect:/ruleName/list";
@@ -76,6 +80,7 @@ public class RuleNameController {
         RuleName ruleName = ruleNameService.findById(id).
             orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
         ruleNameService.delete(ruleName);
+        log.info("The ruleName has been deleted");
         model.addAttribute("ruleNames", ruleNameService.findAll());
 
         return "redirect:/ruleName/list";

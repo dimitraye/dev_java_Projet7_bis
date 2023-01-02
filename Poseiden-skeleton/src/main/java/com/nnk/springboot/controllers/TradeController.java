@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.Trade;
 import com.nnk.springboot.services.ITradeService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class TradeController {
     // TODO: Inject Trade service
@@ -38,6 +40,7 @@ public class TradeController {
         // TODO: check data valid and save to db, after saving return Trade list
         if (!result.hasErrors()) {
             tradeService.save(trade);
+            log.info("The trade has been saved");
             model.addAttribute("trades", tradeService.findAll());
             return "redirect:/trade/list";
         }
@@ -65,6 +68,7 @@ public class TradeController {
 
         trade.setTradeId(id);
         tradeService.save(trade);
+        log.info("The trade has been saved");
         model.addAttribute("trades", tradeService.findAll());
 
         return "redirect:/trade/list";
@@ -76,6 +80,7 @@ public class TradeController {
         Trade trade = tradeService.findById(id).
             orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         tradeService.delete(trade);
+        log.info("The trade has been deleted");
         model.addAttribute("trades", tradeService.findAll());
 
         return "redirect:/trade/list";
