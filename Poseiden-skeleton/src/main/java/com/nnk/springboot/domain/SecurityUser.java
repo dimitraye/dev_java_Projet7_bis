@@ -61,4 +61,8 @@ public class SecurityUser implements UserDetails {
   public User getUser() {
     return user;
   }
+
+  public boolean hasRole(String roleName) {
+    return roleName.equals(this.user.getRole());
+  }
 }
