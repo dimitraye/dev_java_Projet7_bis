@@ -6,6 +6,7 @@ import com.nnk.springboot.services.IBidListService;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Optional;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class BidListController {
     // TODO: Inject Bid service
@@ -47,6 +49,7 @@ public class BidListController {
         // TODO: check data valid and save to db, after saving return bid list
         if (!result.hasErrors()){
             bidListService.save(bid);
+            log.info("The bidList has been saved");
             return  "redirect:/bidList/list";
         }
         return "bidList/add";
@@ -66,6 +69,7 @@ public class BidListController {
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         bidListService.save(bidList);
+        log.info("The bidList has been saved");
         return "redirect:/bidList/list";
     }
 
@@ -73,6 +77,7 @@ public class BidListController {
     public String deleteBid(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
         bidListService.delete(id);
+        log.info("The bidList has been deleted");
         return "redirect:/bidList/list";
     }
 }

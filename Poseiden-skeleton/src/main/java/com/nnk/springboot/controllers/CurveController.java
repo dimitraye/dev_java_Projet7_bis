@@ -5,6 +5,7 @@ import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.CurvePointRepository;
 import com.nnk.springboot.services.CurvePointServiceImpl;
 import com.nnk.springboot.services.ICurvePointService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -17,6 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class CurveController {
     // TODO: Inject Curve Point service
@@ -42,6 +44,7 @@ public class CurveController {
         // TODO: check data valid and save to db, after saving return Curve list
         if (!result.hasErrors()) {
             curvePointService.save(curvePoint);
+            log.info("The curvePoint has been saved");
             model.addAttribute("curvePoints", curvePointService.findAll());
             return "redirect:/curvePoint/list";
         }
@@ -69,6 +72,7 @@ public class CurveController {
 
         curvePoint.setId(id);
         curvePointService.save(curvePoint);
+        log.info("The curvePoint has been saved");
         model.addAttribute("curvePoints", curvePointService.findAll());
 
         return "redirect:/curvePoint/list";
@@ -80,6 +84,7 @@ public class CurveController {
         CurvePoint curvePoint = curvePointService.findById(id).
             orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
         curvePointService.delete(curvePoint);
+        log.info("The curvePoint has been deleted");
         model.addAttribute("curvePoints", curvePointService.findAll());
         return "redirect:/curvePoint/list";
     }

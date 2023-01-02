@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.IRatingService;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -14,6 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+@Slf4j
 @Controller
 public class RatingController {
     // TODO: Inject Rating service
@@ -39,6 +41,7 @@ public class RatingController {
         // TODO: check data valid and save to db, after saving return Rating list
         if (!result.hasErrors()) {
             ratingService.save(rating);
+            log.info("The rating has been saved");
             model.addAttribute("ratings", ratingService.findAll());
             return "redirect:/rating/list";
         }
@@ -66,6 +69,7 @@ public class RatingController {
 
         rating.setId(id);
         ratingService.save(rating);
+        log.info("The rating has been saved");
         model.addAttribute("ratings", ratingService.findAll());
 
         return "redirect:/rating/list";
@@ -77,6 +81,7 @@ public class RatingController {
         Rating rating = ratingService.findById(id).
             orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
         ratingService.delete(rating);
+        log.info("The rating has been deleted");
         model.addAttribute("ratings", ratingService.findAll());
 
 
