@@ -28,4 +28,10 @@ public class CurvePoint {
     Double term;
     Double value;
     Timestamp creationDate;
+
+    public CurvePoint(int curveId, double term, double value) {
+        this.curveId = curveId;
+        this.term = term;
+        this.value = value;
+    }
 }
