@@ -57,4 +57,9 @@ public class Trade {
   String sourceListId;
   @Size(min = 1, max = 125)
   String side;
+
+  public Trade(String account, String type) {
+    this.account = account;
+    this.type = type;
+  }
 }

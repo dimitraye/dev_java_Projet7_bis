@@ -82,4 +82,10 @@ public class BidList {
 
   @Size(min = 1, max = 125)
   private String side;
+
+  public BidList(String account, String type, double bidQuantity) {
+    this.account = account;
+    this.type = type;
+    this.bidQuantity = bidQuantity;
+  }
 }

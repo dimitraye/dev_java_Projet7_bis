@@ -57,8 +57,10 @@ public class SecurityConfig {
         .and()
         .logout()
         .logoutUrl("/logout")
-        /*.and()
-        .oauth2Login()*/
+        .and()
+        .oauth2Login()
+        .loginPage("/app/login")
+        .defaultSuccessUrl("/bidList/list")
     ;
     return http.build();
   }

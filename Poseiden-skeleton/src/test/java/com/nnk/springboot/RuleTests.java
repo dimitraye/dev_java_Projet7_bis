@@ -15,7 +15,6 @@ import java.util.Optional;
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class RuleTests {
-/*
 	@Autowired
 	private RuleNameRepository ruleNameRepository;
 
@@ -42,5 +41,5 @@ public class RuleTests {
 		ruleNameRepository.delete(rule);
 		Optional<RuleName> ruleList = ruleNameRepository.findById(id);
 		Assert.assertFalse(ruleList.isPresent());
-	}*/
+	}
 }

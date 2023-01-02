@@ -15,7 +15,6 @@
 
 <div class="container-fluid">
   <div class="container mt-5 p-4 col-3 col-offset-3 border">
-    <a class="btn btn-success disabled" href="#">Pay my buddy</a>
 
     <div th:if="${param.error}" class="alert alert-error">
       Invalid username and password
@@ -34,14 +33,17 @@
         <label for="pwd">Password:</label>
         <input type="password" class="form-control" id="pwd" placeholder="Password" name="password">
       </div>
-      <div class="form-check mb-3">
-        <label class="form-check-label">
-          <input class="form-check-input" type="checkbox" name="remember"> Remember me
-        </label>
+
+
+      <div  class="mt-5 text-center  bg-primary bg-gradient rounded">
+        <button type="submit" class="btn text-white">Login</button>
       </div>
-      <button type="submit" class="btn btn-primary">Login</button>
 
     </form>
+
+    <div  class="mt-5 text-center  bg-info bg-gradient rounded">
+      <a class="btn btn-block  text-white" th:href="@{/oauth2/authorization/google}"> Login with Google</a>
+    </div>
 
   </div>
 
@@ -57,14 +59,8 @@
       <button type="button" class="btn-close" data-bs-dismiss="alert"></button>
       <strong>Success!</strong> [[${success}]]
     </div>
-  </div>
 
-  <div class="container mt-5 p-4 col-3 col-offset-3 border">
-    <div class="d-grid gap-2">
-      <a type="button" class="btn btn-primary btn-lg btn-block" th:href="@{/userform}">Sign Up</a>
-    </div>
   </div>
-
 
 </div>
 
