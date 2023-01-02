@@ -17,7 +17,6 @@ import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 @Slf4j
 @Controller
-@RequestMapping("app")
 public class LoginController {
 
     @Autowired
@@ -28,15 +27,12 @@ public class LoginController {
 
 
 
-    @GetMapping("/login")
+    @GetMapping(value = {"/login", "app/login"})
     public String login(Model model, RedirectAttributes redirectAttrs) {
         //Récupère le user courrant et cérifie si'il est authentifié
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
-            /*User user = userService.getUserDetails();
-            model.addAttribute("user", user);
-            redirectAttrs.addFlashAttribute("user", user);*/
-            log.error("The password is incorrect");
+            log.info("You are connected");
             return "redirect:/bidList/list";
         }
         return "login";
@@ -51,7 +47,7 @@ public class LoginController {
         return mav;
     }
 
-    @GetMapping("error")
+    @GetMapping("/app/error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();
         String errorMessage= "You are not authorized for the requested data.";

@@ -24,6 +24,9 @@ public class SecurityConfig {
   @Autowired
   JpaUserDetailsService jpaUserDetailsService;
 
+  @Autowired
+  LoginSuccessHandler loginSuccessHandler;
+
 
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
@@ -34,8 +37,8 @@ public class SecurityConfig {
         .authorizeRequests( auth -> auth
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers("/").permitAll()// acces à la page avant login
-            .antMatchers("/user/add").permitAll()// acces au formulaire de signup
-            .antMatchers("/user/validate").permitAll()
+            .antMatchers("/user/*").hasRole("ADMIN")// acces au formulaire de signup
+            .antMatchers("/app/login").permitAll()
             // permet l'acces aux ressources static se trouvant dans le dossier resources de l'application
             .requestMatchers(PathRequest.toStaticResources().atCommonLocations()).permitAll()
             //Any other request need to be authentified
@@ -49,10 +52,11 @@ public class SecurityConfig {
         .formLogin()
         .loginPage("/app/login")
         .loginProcessingUrl("/login")
+        .successHandler(loginSuccessHandler)
         .permitAll()
         .and()
         .logout()
-        .logoutUrl("/app-logout")
+        .logoutUrl("/logout")
         /*.and()
         .oauth2Login()*/
     ;

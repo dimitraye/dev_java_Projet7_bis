@@ -17,14 +17,15 @@
   <div class="container mt-5 p-4 col-3 col-offset-3 border">
     <a class="btn btn-success disabled" href="#">Pay my buddy</a>
 
+    <div th:if="${param.error}" class="alert alert-error">
+      Invalid username and password
+    </div>
+    <div th:if="${param.logout}" class="alert alert-success">
+      You have been logged out
+    </div>
+
     <form th:action="@{/login}" method="post">
 
-      <div th:if="${param.error}" class="alert alert-error">
-        Invalid username and password
-      </div>
-      <div th:if="${param.logout}" class="alert alert-success">
-        You have been logged out
-      </div>
       <div class="mb-3 mt-3">
         <label for="username">Email:</label>
         <input type="username" class="form-control" id="username" placeholder="Email" name="username">
@@ -39,6 +40,7 @@
         </label>
       </div>
       <button type="submit" class="btn btn-primary">Login</button>
+
     </form>
 
   </div>
