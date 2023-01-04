@@ -6,28 +6,29 @@ import java.util.Optional;
 
 public interface ITradeService {
   /**
-   *
+   * Save a trade in the DB.
    * @param trade
    * @return
    */
   Trade save(Trade trade);
 
   /**
+   *  Get a trade from the DB by its Id.
    * @param id
-   * @return
+   * @return a trade
    */
   Optional<Trade> findById(Integer id);
 
   /**
-   *
+   * Get all trades from the DB.
    * @param
-   * @return
+   * @return a list of trade
    */
   List<Trade> findAll();
 
 
   /**
-   *
+   * Delete a trade.
    * @param
    */
   void delete(Trade trade);

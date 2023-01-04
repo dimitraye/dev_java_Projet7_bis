@@ -6,28 +6,29 @@ import java.util.Optional;
 
 public interface IRatingService {
   /**
-   *
+   * Save a rating in the DB.
    * @param rating
    * @return
    */
   Rating save(Rating rating);
 
   /**
+   *  Get a rating from the DB by its Id.
    * @param id
-   * @return
+   * @return a rating
    */
   Optional<Rating> findById(Integer id);
 
   /**
-   *
+   * Get all bidlist from the DB.
    * @param
-   * @return
+   * @return a list of ratings
    */
   List<Rating> findAll();
 
 
   /**
-   *
+   * Delete a rating.
    * @param
    */
   void delete(Rating rating);
