@@ -15,6 +15,12 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.validation.Valid;
 
+
+/**
+ * Manage the requests linked to a rating
+ */
+
+//TODO : Ajouter des commentaires pour les annotations.
 @Slf4j
 @Controller
 public class RatingController {
@@ -23,58 +29,105 @@ public class RatingController {
     IRatingService ratingService;
 
 
+    /**
+     * Return the list page and the list of rating with it.
+     * @param model
+     * @return list page
+     */
     @RequestMapping("/rating/list")
     public String home(Model model)
     {
         // TODO: find all Rating, add to model
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("ratings", ratingService.findAll());
+        //TODO : Ajouter des commentaires pour les redirections.
         return "rating/list";
     }
 
+    /**
+     * Send the user to the Add page.
+     * @param rating
+     * @return the Add page.
+     */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
         return "rating/add";
     }
 
+    /**
+     * Validate the data of the formular and add the new rating into the DB.
+     * @param rating
+     * @param result
+     * @param model
+     * @return the list page.
+     */
     @PostMapping("/rating/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
         // TODO: check data valid and save to db, after saving return Rating list
         if (!result.hasErrors()) {
             ratingService.save(rating);
             log.info("The rating has been saved");
+            //TODO : Ajouter des commentaires pour le model et ses méthodes.
             model.addAttribute("ratings", ratingService.findAll());
+            //TODO : Ajouter des commentaires pour les redirections.
             return "redirect:/rating/list";
         }
 
+        //TODO : Ajouter des commentaires pour les redirections.
         return "rating/add";
     }
 
+    /**
+     *  Send the user to the update page.
+     * @param id
+     * @param model
+     * @return the update page
+     */
     @GetMapping("/rating/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Rating by Id and to model then show to the form
         Rating rating = ratingService.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("rating", rating);
 
+        //TODO : Ajouter des commentaires pour les redirections.
         return "rating/update";
     }
 
+    /**
+     * Check the required fields and save the update
+     * @param id
+     * @param rating
+     * @param result
+     * @param model
+     * @return the list page.
+     */
     @PostMapping("/rating/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {
+            //TODO : Ajouter des commentaires pour les redirections.
             return "rating/update";
         }
 
         rating.setId(id);
         ratingService.save(rating);
         log.info("The rating has been saved");
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("ratings", ratingService.findAll());
 
+        //TODO : Ajouter des commentaires pour les redirections.
         return "redirect:/rating/list";
     }
 
+    /**
+     * Delete the rating.
+     * @param id
+     * @param model
+     * @return the list page.
+     */
     @GetMapping("/rating/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
         // TODO: Find Rating by Id and delete the Rating, return to Rating list
@@ -82,9 +135,11 @@ public class RatingController {
             orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
         ratingService.delete(rating);
         log.info("The rating has been deleted");
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("ratings", ratingService.findAll());
 
 
+        //TODO : Ajouter des commentaires pour les redirections.
         return "redirect:/rating/list";
     }
 }

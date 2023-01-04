@@ -22,6 +22,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import javax.validation.Valid;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+
+/**
+ * Manage the requests linked to a user
+ */
+//TODO : Ajouter des commentaires pour les annotations.
 @Slf4j
 @Controller
 public class UserController {
@@ -31,100 +36,169 @@ public class UserController {
     @Autowired
     private IUserService userService;
 
+    /**
+     * Return the list page and the list of user with it.
+     * @param model
+     * @return list page
+     */
     @RequestMapping("/user/list")
     public String home(Model model)
     {
 
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("users", userService.findAll());
+        //TODO : Ajouter des commentaires pour les redirections.
         return "user/list";
     }
 
+    /**
+     * Send the user to the Add page.
+     * @param bid
+     * @return the Add page.
+     */
     @GetMapping("/user/add")
     public String addUser(User bid) {
+        //TODO : Ajouter des commentaires pour les redirections.
         return "user/add";
     }
 
-    @PostMapping("/user/validate")
+    /**
+     * Validate the data of the formular and add the new user into the DB.
+     * @param user
+     * @param result
+     * @param model
+     * @return the list page.
+     */@PostMapping("/user/validate")
     public String validate(@Valid User user, BindingResult result, Model model, RedirectAttributes redirectAttributes) {
         // check password schema format
+        //TODO : Ajouter des commentaires pour cette ligne
         PasswordValidator validator = userService.getValidator();
+        //TODO : Ajouter des commentaires pour cette ligne
         RuleResult resultForPassword = validator.validate(new PasswordData(user.getPassword()));
         if (!resultForPassword.isValid()) {
+            //TODO : Ajouter des commentaires pour cette ligne
             validator.getMessages(resultForPassword).forEach(errorMessage -> {
                 log.error("The password is incorrect");
+                //TODO : Ajouter des commentaires pour cette ligne
                 result.addError(new FieldError("user", "password", errorMessage));
             });
         }
 
         if (result.hasErrors()) {
+            //TODO : Ajouter des commentaires pour les redirections.
             return "/user/add";
         }
 
+        //TODO : Ajouter des commentaires pour cette ligne
         User userFromDB = userService.findByUserName(user.getUsername()).orElse(null);
         if (userFromDB != null){
             log.error("The username : " + user.getUsername() + " is already registered in the data base");
+            //TODO : Ajouter des commentaires pour le model et ses méthodes.
             model.addAttribute("error",
                 "The username : " + user.getUsername() + " is already registered in the data base.");
+            //TODO : Ajouter des commentaires pour les redirections.
             return "/user/add";
         }
 
+        //TODO : Ajouter des commentaires pour cette ligne
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //TODO : Ajouter des commentaires pour cette ligne
         user.setPassword(encoder.encode(user.getPassword()));
         userService.save(user);
         log.info("The user has been saved");
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("users", userService.findAll());
+        //TODO : Ajouter des commentaires pour les redirections.
         return "redirect:/user/list";
     }
 
+    /**
+     *  Send the user to the update page.
+     * @param id
+     * @param model
+     * @return the update page
+     */
     @GetMapping("/user/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
+        //TODO : Ajouter des commentaires pour cette ligne
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
+        //TODO : Ajouter des commentaires pour cette ligne
         user.setPassword("");
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("user", user);
+        //TODO : Ajouter des commentaires pour les redirections.
         return "user/update";
     }
 
-    @PostMapping("/user/update/{id}")
+    /**
+     * Check the required fields and save the update
+     * @param id
+     * @param user
+     * @param result
+     * @param model
+     * @return the list page.
+     */@PostMapping("/user/update/{id}")
     public String updateUser(@PathVariable("id") Integer id, @Valid User user,
                              BindingResult result, Model model) {
         // check password schema format
+        //TODO : Ajouter des commentaires pour cette ligne
         PasswordValidator validator = userService.getValidator();
+        //TODO : Ajouter des commentaires pour cette ligne
         RuleResult resultForPassword = validator.validate(new PasswordData(user.getPassword()));
         if (!resultForPassword.isValid()) {
+            //TODO : Ajouter des commentaires pour cette ligne
             validator.getMessages(resultForPassword).forEach(errorMessage -> {
                 log.error("The password is incorrect");
+                //TODO : Ajouter des commentaires pour cette ligne
                 result.addError(new FieldError("user", "password", errorMessage));
             });
         }
 
         if (result.hasErrors()) {
+            //TODO : Ajouter des commentaires pour les redirections.
             return "/user/add";
         }
 
         User userFromDB = userService.findByUserName(user.getUsername()).orElse(null);
         if (userFromDB != null && (userFromDB.getId() != id) ){
             log.error("The username : " + user.getUsername() + " is already registered in the data base.");
+            //TODO : Ajouter des commentaires pour le model et ses méthodes.
             model.addAttribute("error",
                 "The username : " + user.getUsername() + " is already registered in the data base.");
+            //TODO : Ajouter des commentaires pour les redirections.
             return "/user/add";
         }
 
+        //TODO : Ajouter des commentaires pour cette ligne
         BCryptPasswordEncoder encoder = new BCryptPasswordEncoder();
+        //TODO : Ajouter des commentaires pour cette ligne
         user.setPassword(encoder.encode(user.getPassword()));
+        //TODO : Ajouter des commentaires pour cette ligne
         user.setId(id);
         userService.save(user);
         log.info("The user has been saved");
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("users", userService.findAll());
+        //TODO : Ajouter des commentaires pour les redirections.
         return "redirect:/user/list";
     }
 
+    /**
+     * Delete the user.
+     * @param id
+     * @param model
+     * @return the list page.
+     */
     @GetMapping("/user/delete/{id}")
     public String deleteUser(@PathVariable("id") Integer id, Model model) {
+        //TODO : Ajouter des commentaires pour cette ligne
         User user = userService.findById(id).
             orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.delete(user);
         log.info("The user has been deleted");
+        //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("users", userService.findAll());
+        //TODO : Ajouter des commentaires pour les redirections.
         return "redirect:/user/list";
     }
 }

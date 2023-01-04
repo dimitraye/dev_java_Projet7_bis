@@ -9,10 +9,20 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+
+/**
+ * This class represents the table rulename.
+ */
+//TODO : Ajouter des commentaires pour les annotations
+//Permet d'utiliser différentes méthodes tel que toString(), getters, setters...
 @Data
+//Annotation permettant de créer des constructeurs sans arguments
 @NoArgsConstructor
+//Annotation permettant de créer des constructeurs avec arguments
 @AllArgsConstructor
+//Indique que cette classe est une entité (une entité représente un table dans la BD)
 @Entity
+//Annotation Indiquant que la table dans la BD prendra le nom en paramêtre
 @Table(name = "rulename")
 public class RuleName {
     // TODO: Map columns in data table RULENAME with corresponding java fields

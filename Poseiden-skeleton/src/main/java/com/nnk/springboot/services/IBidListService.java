@@ -6,28 +6,29 @@ import java.util.Optional;
 
 public interface IBidListService {
   /**
-   *
+   * Save a bidlist in the DB.
    * @param bidList
    * @return
    */
   BidList save(BidList bidList);
 
   /**
+   *  Get a bidlist from the DB by its Id.
    * @param id
-   * @return
+   * @return a bidList
    */
   Optional<BidList> findById(Integer id);
 
   /**
-   *
+   * Get all bidlist from the DB.
    * @param
-   * @return
+   * @return a List of bidList
    */
   List<BidList> findAll();
 
 
   /**
-   *
+   * Delete a bidlist by its Id.
    * @param id
    */
    void delete(Integer id);

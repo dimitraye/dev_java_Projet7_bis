@@ -8,7 +8,7 @@ import org.passay.PasswordValidator;
 public interface IUserService {
 
   /**
-   *
+   * Save the user in the DB.
    * @param user
    * @return
    */
@@ -16,26 +16,26 @@ public interface IUserService {
 
 
   /**
-   *
-   * @return
+   * Get all users from the DB.
+   * @return List of users
    */
   List<User> findAll();
 
   /**
-   *
+   * Get one user by its Id.
    * @param id
-   * @return
+   * @return user
    */
   Optional<User> findById(Integer id);
 
   /**
-   *
+   * Delete a user.
    * @param id
    */
   void deleteById(Integer id);
 
   /**
-   *
+   * Delete a user.
    * @param user
    */
   void delete(User user);
@@ -47,5 +47,10 @@ public interface IUserService {
    */
   PasswordValidator getValidator();
 
+  /**
+   * Get a user by its username
+   * @param username
+   * @return
+   */
   Optional<User> findByUserName(String username);
 }

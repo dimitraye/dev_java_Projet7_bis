@@ -7,6 +7,7 @@ import java.util.Optional;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+//TODO : Ajouter des commentaires pour les annotations
 @Service
 public class BidListServiceImpl implements IBidListService{
 

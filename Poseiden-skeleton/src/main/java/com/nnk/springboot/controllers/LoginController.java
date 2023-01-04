@@ -15,6 +15,10 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
+/**
+ *
+ */
+//TODO : Ajouter des commentaires pour les annotations.
 @Slf4j
 @Controller
 public class LoginController {
@@ -27,6 +31,11 @@ public class LoginController {
 
 
 
+    /**
+     * Return the login page.
+     * @param model
+     * @return
+     */
     @GetMapping(value = {"/login", "app/login"})
     public String login(Model model, RedirectAttributes redirectAttrs) {
         //Récupère le user courrant et cérifie si'il est authentifié
@@ -39,6 +48,10 @@ public class LoginController {
     }
 
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
@@ -47,6 +60,10 @@ public class LoginController {
         return mav;
     }
 
+    /**
+     *
+     * @return
+     */
     @GetMapping("/app/error")
     public ModelAndView error() {
         ModelAndView mav = new ModelAndView();
