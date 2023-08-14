@@ -42,11 +42,11 @@ public class BidListController {
         // TODO: call service find all bids to show to the view
 
         List<BidList> bids = new ArrayList<>(bidListService.findAll());
-        //bids.addAll();
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de transmettre des propriétés à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet bids dans la vue
         model.addAttribute("bids", bids);
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne le fichier list.html qui se trouve dans le dossier bidlist pour afficher la page list
         return "bidList/list";
     }
 
@@ -57,6 +57,7 @@ public class BidListController {
      */
     @GetMapping("/bidList/add")
     public String addBidForm(BidList bid) {
+        //Retourne le fichier add.html qui se trouve dans le dossier bidlist pour afficher la page add
         return "bidList/add";
     }
 
@@ -73,10 +74,10 @@ public class BidListController {
         if (!result.hasErrors()){
             bidListService.save(bid);
             log.info("The bidList has been saved");
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint bidlist/list qui execute la méthode home qui permet d'afficher la page list
             return  "redirect:/bidList/list";
         }
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne le fichier add.html qui se trouve dans le dossier bidlist pour afficher la page list
         return "bidList/add";
     }
 
@@ -90,10 +91,11 @@ public class BidListController {
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
         // TODO: get Bid by Id and to model then show to the form
         BidList bidList = bidListService.findById(id).get();
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de transmettre des propriétés à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet bidList dans la vue
         model.addAttribute("bidList", bidList);
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne le fichier update.html qui se trouve dans le dossier bidlist pour afficher la page update
         return "bidList/update";
     }
 
@@ -111,7 +113,7 @@ public class BidListController {
         // TODO: check required fields, if valid call service to update Bid and return list Bid
         bidListService.save(bidList);
         log.info("The bidList has been saved");
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint bidlist/list qui execute la méthode home qui permet d'afficher la page list
         return "redirect:/bidList/list";
     }
 
@@ -126,7 +128,7 @@ public class BidListController {
         // TODO: Find Bid by Id and delete the bid, return to Bid list
         bidListService.delete(id);
         log.info("The bidList has been deleted");
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint bidlist/list qui execute la méthode home qui permet d'afficher la page list
         return "redirect:/bidList/list";
     }
 }

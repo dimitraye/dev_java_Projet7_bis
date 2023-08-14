@@ -42,7 +42,7 @@ public interface IUserService {
 
 
   /**
-   *
+   * Verify that the password respect the specifications
    * @return
    */
   PasswordValidator getValidator();

@@ -12,6 +12,8 @@ import org.springframework.test.context.junit4.SpringRunner;
  * Date: 09/03/2019
  * Time: 11:26 AM
  */
+//L'annotation est utilisée pour configurer un test unitaire nécessitant
+// l'injection de dépendance de Spring
 @RunWith(SpringRunner.class)
 @SpringBootTest
 public class PasswordEncodeTest {

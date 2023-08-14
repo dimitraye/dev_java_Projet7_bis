@@ -42,8 +42,10 @@ public class LoginController {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             log.info("You are connected");
+            //Retourne l'endpoint bidList/list qui affiche la page list
             return "redirect:/bidList/list";
         }
+        //Retourne l'endpoint login qui affiche la page login
         return "login";
     }
 

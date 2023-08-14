@@ -42,7 +42,7 @@ public class CurveController {
         // TODO: find all Curve Point, add to model
         //TODO : Ajouter des commentaires pour le model et ses méthodes.
         model.addAttribute("curvePoints", curvePointService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint curvePoint/list qui affiche la page list
         return "curvePoint/list";
     }
 
@@ -53,7 +53,7 @@ public class CurveController {
      */
     @GetMapping("/curvePoint/add")
     public String addBidForm(CurvePoint bid) {
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint curvePoint/add qui affiche la page add
         return "curvePoint/add";
     }
 
@@ -71,12 +71,14 @@ public class CurveController {
         if (!result.hasErrors()) {
             curvePointService.save(curvePoint);
             log.info("The curvePoint has been saved");
-            //TODO : Ajouter des commentaires pour le model et ses méthodes.
+            //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+            //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+            //recupérera les valeurs transmisent par curvePointService.findAll()
             model.addAttribute("curvePoints", curvePointService.findAll());
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint curvePoint/list qui affiche la page list
             return "redirect:/curvePoint/list";
         }
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint curvePoint/add qui affiche la page add
         return "curvePoint/add";
     }
 
@@ -92,10 +94,11 @@ public class CurveController {
         // TODO: get CurvePoint by Id and to model then show to the form
         CurvePoint curvePoint = curvePointService.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet curvePoint dans la vue
         model.addAttribute("curvePoint", curvePoint);
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint curvePoint/update qui affiche la page update
         return "curvePoint/update";
     }
 
@@ -112,17 +115,19 @@ public class CurveController {
                             BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Curve and return Curve list
         if (result.hasErrors()) {
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint curvePoint/update qui affiche la page update
             return "curvePoint/update";
         }
 
         curvePoint.setId(id);
         curvePointService.save(curvePoint);
         log.info("The curvePoint has been saved");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par curvePointService.findAll()
         model.addAttribute("curvePoints", curvePointService.findAll());
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint curvePoint/list qui affiche la page list
         return "redirect:/curvePoint/list";
     }
 
@@ -139,9 +144,11 @@ public class CurveController {
             orElseThrow(() -> new IllegalArgumentException("Invalid curvePoint Id:" + id));
         curvePointService.delete(curvePoint);
         log.info("The curvePoint has been deleted");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par curvePointService.findAll()
         model.addAttribute("curvePoints", curvePointService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint curvePoint/list qui affiche la page list
         return "redirect:/curvePoint/list";
     }
 }

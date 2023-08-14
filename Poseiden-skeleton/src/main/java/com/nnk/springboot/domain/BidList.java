@@ -32,6 +32,7 @@ public class BidList {
 
   @Id
   @GeneratedValue(strategy= GenerationType.IDENTITY)
+  //Annotation qui spécifie les contraintes de validation pour un champ numérique.
   @Digits(integer = 4, fraction = 0)
   private Integer bidListId;
 

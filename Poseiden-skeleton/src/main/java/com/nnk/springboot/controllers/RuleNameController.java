@@ -36,9 +36,11 @@ public class RuleNameController {
     public String home(Model model)
     {
         // TODO: find all RuleName, add to model
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par ruleNameService.findAll()
         model.addAttribute("ruleNames", ruleNameService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint ruleName/list qui affiche la page list
         return "ruleName/list";
     }
 
@@ -49,6 +51,7 @@ public class RuleNameController {
      */
     @GetMapping("/ruleName/add")
     public String addRuleForm(RuleName bid) {
+        //Retourne l'endpoint ruleName/add qui affiche la page add
         return "ruleName/add";
     }
 
@@ -65,13 +68,15 @@ public class RuleNameController {
         if (!result.hasErrors()) {
             ruleNameService.save(ruleName);
             log.info("The ruleName has been saved");
-            //TODO : Ajouter des commentaires pour le model et ses méthodes.
+            //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+            //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+            //recupérera les valeurs transmisent par ruleNameService.findAll()
             model.addAttribute("ruleNames", ruleNameService.findAll());
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint ruleName/list qui affiche la page list
             return "redirect:/ruleName/list";
         }
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint ruleName/add qui affiche la page add
         return "ruleName/add";
     }
 
@@ -87,9 +92,11 @@ public class RuleNameController {
         RuleName ruleName = ruleNameService.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
         //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet ruleName dans la vue
         model.addAttribute("ruleName", ruleName);
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint ruleName/update qui affiche la page update
         return "ruleName/update";
     }
 
@@ -106,17 +113,19 @@ public class RuleNameController {
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update RuleName and return RuleName list
         if (result.hasErrors()) {
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint ruleName/update qui affiche la page update
             return "ruleName/update";
         }
 
         ruleName.setId(id);
         ruleNameService.save(ruleName);
         log.info("The ruleName has been saved");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par ruleNameService.findAll()
         model.addAttribute("ruleNames", ruleNameService.findAll());
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint ruleName/list qui affiche la page list
         return "redirect:/ruleName/list";
     }
 
@@ -133,10 +142,12 @@ public class RuleNameController {
             orElseThrow(() -> new IllegalArgumentException("Invalid ruleName Id:" + id));
         ruleNameService.delete(ruleName);
         log.info("The ruleName has been deleted");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par ruleNameService.findAll()
         model.addAttribute("ruleNames", ruleNameService.findAll());
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint ruleName/list qui affiche la page list
         return "redirect:/ruleName/list";
     }
 }

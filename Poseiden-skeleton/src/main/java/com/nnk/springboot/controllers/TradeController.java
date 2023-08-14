@@ -36,9 +36,11 @@ public class TradeController {
     public String home(Model model)
     {
         // TODO: find all Trade, add to model
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par tradeService.findAll()
         model.addAttribute("trades", tradeService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint trade/list qui affiche la page list
         return "trade/list";
     }
 
@@ -49,7 +51,7 @@ public class TradeController {
      */
     @GetMapping("/trade/add")
     public String addUser(Trade bid) {
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint trade/add qui affiche la page add
         return "trade/add";
     }
 
@@ -66,13 +68,15 @@ public class TradeController {
         if (!result.hasErrors()) {
             tradeService.save(trade);
             log.info("The trade has been saved");
-            //TODO : Ajouter des commentaires pour le model et ses méthodes.
+            //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+            //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+            //recupérera les valeurs transmisent par tradeService.findAll()
             model.addAttribute("trades", tradeService.findAll());
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint trade/list qui affiche la page list
             return "redirect:/trade/list";
         }
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint trade/add qui affiche la page add
         return "trade/add";
     }
 
@@ -87,10 +91,11 @@ public class TradeController {
         // TODO: get Trade by Id and to model then show to the form
         Trade trade = tradeService.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet trade dans la vue
         model.addAttribute("trade", trade);
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint trade/update qui affiche la page update
         return "trade/update";
     }
 
@@ -107,7 +112,7 @@ public class TradeController {
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Trade and return Trade list
         if (result.hasErrors()) {
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint trade/update qui affiche la page update
             return "trade/update";
         }
 
@@ -115,9 +120,12 @@ public class TradeController {
         tradeService.save(trade);
         log.info("The trade has been saved");
         //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par tradeService.findAll()
         model.addAttribute("trades", tradeService.findAll());
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint trade/list qui affiche la page list
         return "redirect:/trade/list";
     }
 
@@ -134,10 +142,12 @@ public class TradeController {
             orElseThrow(() -> new IllegalArgumentException("Invalid trade Id:" + id));
         tradeService.delete(trade);
         log.info("The trade has been deleted");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par tradeService.findAll()
         model.addAttribute("trades", tradeService.findAll());
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint trade/list qui affiche la page list
         return "redirect:/trade/list";
     }
 }

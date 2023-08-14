@@ -38,9 +38,11 @@ public class RatingController {
     public String home(Model model)
     {
         // TODO: find all Rating, add to model
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par ratingService.findAll()
         model.addAttribute("ratings", ratingService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint rating/list qui affiche la page list
         return "rating/list";
     }
 
@@ -51,6 +53,7 @@ public class RatingController {
      */
     @GetMapping("/rating/add")
     public String addRatingForm(Rating rating) {
+        //Retourne l'endpoint rating/add qui affiche la page add
         return "rating/add";
     }
 
@@ -67,9 +70,11 @@ public class RatingController {
         if (!result.hasErrors()) {
             ratingService.save(rating);
             log.info("The rating has been saved");
-            //TODO : Ajouter des commentaires pour le model et ses méthodes.
+            //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+            //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+            //recupérera les valeurs transmisent par ratingService.findAll()
             model.addAttribute("ratings", ratingService.findAll());
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint rating/list qui affiche la page list
             return "redirect:/rating/list";
         }
 
@@ -88,10 +93,11 @@ public class RatingController {
         // TODO: get Rating by Id and to model then show to the form
         Rating rating = ratingService.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet rating dans la vue
         model.addAttribute("rating", rating);
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint rating/update qui affiche la page update
         return "rating/update";
     }
 
@@ -108,17 +114,19 @@ public class RatingController {
                              BindingResult result, Model model) {
         // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint rating/update qui affiche la page update
             return "rating/update";
         }
 
         rating.setId(id);
         ratingService.save(rating);
         log.info("The rating has been saved");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par ratingService.findAll()
         model.addAttribute("ratings", ratingService.findAll());
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint rating/list qui affiche la page list
         return "redirect:/rating/list";
     }
 
@@ -135,11 +143,13 @@ public class RatingController {
             orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
         ratingService.delete(rating);
         log.info("The rating has been deleted");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par ratingService.findAll()
         model.addAttribute("ratings", ratingService.findAll());
 
 
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint rating/list qui affiche la page list
         return "redirect:/rating/list";
     }
 }

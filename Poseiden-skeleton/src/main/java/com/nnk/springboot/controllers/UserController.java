@@ -46,8 +46,11 @@ public class UserController {
     {
 
         //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par userService.findAll()
         model.addAttribute("users", userService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint user/list qui affiche la page list
         return "user/list";
     }
 
@@ -58,7 +61,7 @@ public class UserController {
      */
     @GetMapping("/user/add")
     public String addUser(User bid) {
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint user/add qui affiche la page add
         return "user/add";
     }
 
@@ -85,7 +88,7 @@ public class UserController {
         }
 
         if (result.hasErrors()) {
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint user/add qui affiche la page add
             return "/user/add";
         }
 
@@ -96,7 +99,7 @@ public class UserController {
             //TODO : Ajouter des commentaires pour le model et ses méthodes.
             model.addAttribute("error",
                 "The username : " + user.getUsername() + " is already registered in the data base.");
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint user/add qui affiche la page add
             return "/user/add";
         }
 
@@ -106,9 +109,11 @@ public class UserController {
         user.setPassword(encoder.encode(user.getPassword()));
         userService.save(user);
         log.info("The user has been saved");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par userService.findAll()
         model.addAttribute("users", userService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint user/list qui affiche la page list
         return "redirect:/user/list";
     }
 
@@ -124,9 +129,10 @@ public class UserController {
         User user = userService.findById(id).orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         //TODO : Ajouter des commentaires pour cette ligne
         user.setPassword("");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom de l'objet user dans la vue
         model.addAttribute("user", user);
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint user/update qui affiche la page update
         return "user/update";
     }
 
@@ -155,7 +161,7 @@ public class UserController {
         }
 
         if (result.hasErrors()) {
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint user/add qui affiche la page add
             return "/user/add";
         }
 
@@ -165,7 +171,7 @@ public class UserController {
             //TODO : Ajouter des commentaires pour le model et ses méthodes.
             model.addAttribute("error",
                 "The username : " + user.getUsername() + " is already registered in the data base.");
-            //TODO : Ajouter des commentaires pour les redirections.
+            //Retourne l'endpoint user/add qui affiche la page add
             return "/user/add";
         }
 
@@ -177,9 +183,11 @@ public class UserController {
         user.setId(id);
         userService.save(user);
         log.info("The user has been saved");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par userService.findAll()
         model.addAttribute("users", userService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint user/list qui affiche la page list
         return "redirect:/user/list";
     }
 
@@ -196,9 +204,11 @@ public class UserController {
             orElseThrow(() -> new IllegalArgumentException("Invalid user Id:" + id));
         userService.delete(user);
         log.info("The user has been deleted");
-        //TODO : Ajouter des commentaires pour le model et ses méthodes.
+        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
+        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
+        //recupérera les valeurs transmisent par userService.findAll()
         model.addAttribute("users", userService.findAll());
-        //TODO : Ajouter des commentaires pour les redirections.
+        //Retourne l'endpoint user/list qui affiche la page list
         return "redirect:/user/list";
     }
 }

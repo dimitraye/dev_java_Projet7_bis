@@ -20,6 +20,8 @@ public class HomeController
 	public String home(Model model)
 	{
 		//TODO : Ajouter des commentaires pour les redirections.
+		//Retourne l'endpoint home qui affiche la page home
+
 		return "home";
 	}
 
@@ -31,7 +33,7 @@ public class HomeController
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model)
 	{
-		//TODO : Ajouter des commentaires pour les redirections.
+		//Retourne l'endpoint bidList/list qui affiche la page list
 		return "redirect:/bidList/list";
 	}
 
