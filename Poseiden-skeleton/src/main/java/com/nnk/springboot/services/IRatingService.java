@@ -31,5 +31,5 @@ public interface IRatingService {
    * Delete a rating.
    * @param
    */
-  void delete(Rating rating);
+  void delete(Integer id);
 }

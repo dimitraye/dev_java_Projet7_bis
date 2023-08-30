@@ -1,7 +1,7 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.domain.CurvePoint;
+
 import java.util.List;
 import java.util.Optional;
 
@@ -32,5 +32,5 @@ public interface ICurvePointService {
    * Delete a curvePoint.
    * @param
    */
-  void delete(CurvePoint curvePoint);
+  void delete(Integer id);
 }

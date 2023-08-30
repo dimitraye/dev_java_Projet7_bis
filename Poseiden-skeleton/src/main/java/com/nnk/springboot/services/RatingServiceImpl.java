@@ -2,15 +2,16 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.repositories.RatingRepository;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@AllArgsConstructor
 @Service
 public class RatingServiceImpl implements  IRatingService{
-  @Autowired
-  RatingRepository ratingRepository;
+  private final RatingRepository ratingRepository;
   @Override
   public Rating save(Rating rating) {
     return ratingRepository.save(rating);
@@ -27,7 +28,7 @@ public class RatingServiceImpl implements  IRatingService{
   }
 
   @Override
-  public void delete(Rating rating) {
-    ratingRepository.delete(rating);
+  public void delete(Integer id) {
+    ratingRepository.deleteById(id);
   }
 }

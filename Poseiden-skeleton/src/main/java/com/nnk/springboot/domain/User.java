@@ -10,18 +10,12 @@ import lombok.NoArgsConstructor;
 
 
 /**
- * This class represents the table users.
+ * This class represents the entity users.
  */
-//TODO : Ajouter des commentaires pour les annotations
-//Permet d'utiliser différentes méthodes tel que toString(), getters, setters...
 @Data
-//Annotation permettant de créer des constructeurs sans arguments
 @NoArgsConstructor
-//Annotation permettant de créer des constructeurs avec arguments
 @AllArgsConstructor
-//Indique que cette classe est une entité (une entité représente un table dans la BD)
 @Entity
-//Annotation Indiquant que la table dans la BD prendra le nom en paramêtre
 @Table(name = "users")
 public class User {
     @Id

@@ -11,11 +11,11 @@ import org.springframework.stereotype.Service;
  * Service Spring Security qui gère l'authentification sécurisée du user
  */
 @Service
-public class JpaUserDetailsService implements UserDetailsService{
+public class UserDetailsServiceImpl implements UserDetailsService{
 
   private final UserRepository userRepository;
 
-  public JpaUserDetailsService(UserRepository userRepository) {
+  public UserDetailsServiceImpl(UserRepository userRepository) {
     this.userRepository = userRepository;
   }
 

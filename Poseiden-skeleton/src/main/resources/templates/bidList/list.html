@@ -37,7 +37,6 @@
 			</tr>
 			</thead>
 			<tbody>
-			<!-- TODO: Show all Bids to the table, the Action column will have Edit & Delete buttons -->
 			<th:block th:each="bid : ${bids}">
 				<tr>
 					<td th:text="${bid.bidListId}"></td>
@@ -47,21 +46,9 @@
 					<td><a href="#"  th:href="@{'/bidList/update/' + ${bid.bidListId}}">Edit</a>
 						|
 						<a href="#"  th:href="@{'/bidList/delete/' + ${bid.bidListId}}">Delete</a></td>
-					<!--
-                                            <a th:href="@{'/category/edit/' + ${category.id}}">view</a>
-                    -->
 
 				</tr>
 			</th:block>
-
-			<!--<th:block th:each="transfer : ${transfers}">
-                <tr>
-                    <td th:text="${transfer.accountReceiver.user.username}"></td>
-                    <td th:text="${transfer.description}"></td>
-                    <td th:text="${transfer.amount} + ' €'"></td>
-                    <td th:text="${transfer.accountReceiver.id == userAccountId} ? 'Received' : 'Sent'"></td>
-                </tr>
-            </th:block>-->
 			</tbody>
 		</table>
 	</div>

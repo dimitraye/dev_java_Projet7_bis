@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.User;
 import com.nnk.springboot.repositories.UserRepository;
 import com.nnk.springboot.services.IUserService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
@@ -16,20 +17,14 @@ import org.springframework.web.servlet.ModelAndView;
 import org.springframework.web.servlet.mvc.support.RedirectAttributes;
 
 /**
- *
+ * Manage the requests linked to the login page
  */
-//TODO : Ajouter des commentaires pour les annotations.
+@AllArgsConstructor
 @Slf4j
 @Controller
 public class LoginController {
 
-    @Autowired
-    private UserRepository userRepository;
-
-    @Autowired
-    IUserService userService;
-
-
+    private final IUserService userService;
 
     /**
      * Return the login page.
@@ -38,14 +33,11 @@ public class LoginController {
      */
     @GetMapping(value = {"/login", "app/login"})
     public String login(Model model, RedirectAttributes redirectAttrs) {
-        //Récupère le user courrant et cérifie si'il est authentifié
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         if (!(auth instanceof AnonymousAuthenticationToken)) {
             log.info("You are connected");
-            //Retourne l'endpoint bidList/list qui affiche la page list
             return "redirect:/bidList/list";
         }
-        //Retourne l'endpoint login qui affiche la page login
         return "login";
     }
 
@@ -57,13 +49,13 @@ public class LoginController {
     @GetMapping("secure/article-details")
     public ModelAndView getAllUserArticles() {
         ModelAndView mav = new ModelAndView();
-        mav.addObject("users", userRepository.findAll());
+        mav.addObject("users", userService.findAll());
         mav.setViewName("user/list");
         return mav;
     }
 
     /**
-     *
+     *Generate an "Error" page
      * @return
      */
     @GetMapping("/app/error")

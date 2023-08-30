@@ -3,6 +3,7 @@ package com.nnk.springboot.controllers;
 import com.nnk.springboot.domain.CurvePoint;
 import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.services.IRatingService;
+import lombok.AllArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -20,13 +21,12 @@ import javax.validation.Valid;
  * Manage the requests linked to a rating
  */
 
-//TODO : Ajouter des commentaires pour les annotations.
+@AllArgsConstructor
 @Slf4j
 @Controller
+@RequestMapping("/rating")
 public class RatingController {
-    // TODO: Inject Rating service
-    @Autowired
-    IRatingService ratingService;
+    private final IRatingService ratingService;
 
 
     /**
@@ -34,15 +34,10 @@ public class RatingController {
      * @param model
      * @return list page
      */
-    @RequestMapping("/rating/list")
+    @RequestMapping("/list")
     public String home(Model model)
     {
-        // TODO: find all Rating, add to model
-        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
-        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
-        //recupérera les valeurs transmisent par ratingService.findAll()
         model.addAttribute("ratings", ratingService.findAll());
-        //Retourne l'endpoint rating/list qui affiche la page list
         return "rating/list";
     }
 
@@ -51,34 +46,26 @@ public class RatingController {
      * @param rating
      * @return the Add page.
      */
-    @GetMapping("/rating/add")
+    @GetMapping("/add")
     public String addRatingForm(Rating rating) {
-        //Retourne l'endpoint rating/add qui affiche la page add
         return "rating/add";
     }
 
     /**
-     * Validate the data of the formular and add the new rating into the DB.
+     * Validate the data of the form and add the new rating into the DB.
      * @param rating
      * @param result
      * @param model
      * @return the list page.
      */
-    @PostMapping("/rating/validate")
+    @PostMapping("/validate")
     public String validate(@Valid Rating rating, BindingResult result, Model model) {
-        // TODO: check data valid and save to db, after saving return Rating list
         if (!result.hasErrors()) {
             ratingService.save(rating);
             log.info("The rating has been saved");
-            //L'objet model de la classe Model permet de passer des propriétés du model à la vue
-            //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
-            //recupérera les valeurs transmisent par ratingService.findAll()
             model.addAttribute("ratings", ratingService.findAll());
-            //Retourne l'endpoint rating/list qui affiche la page list
             return "redirect:/rating/list";
         }
-
-        //TODO : Ajouter des commentaires pour les redirections.
         return "rating/add";
     }
 
@@ -88,16 +75,11 @@ public class RatingController {
      * @param model
      * @return the update page
      */
-    @GetMapping("/rating/update/{id}")
+    @GetMapping("/update/{id}")
     public String showUpdateForm(@PathVariable("id") Integer id, Model model) {
-        // TODO: get Rating by Id and to model then show to the form
         Rating rating = ratingService.findById(id)
             .orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
-        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
-        //Ajoute les attributs de bids et indique quel sera le nom de l'objet rating dans la vue
         model.addAttribute("rating", rating);
-
-        //Retourne l'endpoint rating/update qui affiche la page update
         return "rating/update";
     }
 
@@ -109,24 +91,18 @@ public class RatingController {
      * @param model
      * @return the list page.
      */
-    @PostMapping("/rating/update/{id}")
+    @PostMapping("/update/{id}")
     public String updateRating(@PathVariable("id") Integer id, @Valid Rating rating,
                              BindingResult result, Model model) {
-        // TODO: check required fields, if valid call service to update Rating and return Rating list
         if (result.hasErrors()) {
-            //Retourne l'endpoint rating/update qui affiche la page update
             return "rating/update";
         }
 
         rating.setId(id);
         ratingService.save(rating);
         log.info("The rating has been saved");
-        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
-        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
-        //recupérera les valeurs transmisent par ratingService.findAll()
         model.addAttribute("ratings", ratingService.findAll());
 
-        //Retourne l'endpoint rating/list qui affiche la page list
         return "redirect:/rating/list";
     }
 
@@ -136,20 +112,12 @@ public class RatingController {
      * @param model
      * @return the list page.
      */
-    @GetMapping("/rating/delete/{id}")
+    @GetMapping("/delete/{id}")
     public String deleteRating(@PathVariable("id") Integer id, Model model) {
-        // TODO: Find Rating by Id and delete the Rating, return to Rating list
-        Rating rating = ratingService.findById(id).
-            orElseThrow(() -> new IllegalArgumentException("Invalid rating Id:" + id));
-        ratingService.delete(rating);
+        ratingService.delete(id);
         log.info("The rating has been deleted");
-        //L'objet model de la classe Model permet de passer des propriétés du model à la vue
-        //Ajoute les attributs de bids et indique quel sera le nom, dans la vue, de l'objet qui
-        //recupérera les valeurs transmisent par ratingService.findAll()
         model.addAttribute("ratings", ratingService.findAll());
 
-
-        //Retourne l'endpoint rating/list qui affiche la page list
         return "redirect:/rating/list";
     }
 }

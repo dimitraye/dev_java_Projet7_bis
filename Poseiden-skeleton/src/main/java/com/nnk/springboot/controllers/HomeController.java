@@ -5,9 +5,8 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 /**
- *
+ * Manage the requests linked to Home page
  */
-//TODO : Ajouter des commentaires pour les annotations.
 @Controller
 public class HomeController
 {
@@ -19,9 +18,6 @@ public class HomeController
 	@RequestMapping("/")
 	public String home(Model model)
 	{
-		//TODO : Ajouter des commentaires pour les redirections.
-		//Retourne l'endpoint home qui affiche la page home
-
 		return "home";
 	}
 
@@ -33,7 +29,6 @@ public class HomeController
 	@RequestMapping("/admin/home")
 	public String adminHome(Model model)
 	{
-		//Retourne l'endpoint bidList/list qui affiche la page list
 		return "redirect:/bidList/list";
 	}
 

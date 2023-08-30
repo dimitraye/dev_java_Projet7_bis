@@ -1,19 +1,18 @@
 package com.nnk.springboot.services;
 
-import com.nnk.springboot.domain.Rating;
 import com.nnk.springboot.domain.Trade;
-import com.nnk.springboot.repositories.RatingRepository;
 import com.nnk.springboot.repositories.TradeRepository;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
+import java.util.Optional;
+
+@AllArgsConstructor
 @Service
 public class TradeServiceImpl implements  ITradeService{
 
-  @Autowired
-  TradeRepository tradeRepository;
+  private final TradeRepository tradeRepository;
 
   @Override
   public Trade save(Trade trade) {
@@ -31,7 +30,7 @@ public class TradeServiceImpl implements  ITradeService{
   }
 
   @Override
-  public void delete(Trade trade) {
-    tradeRepository.delete(trade);
+  public void delete(Integer id) {
+    tradeRepository.deleteById(id);
   }
 }

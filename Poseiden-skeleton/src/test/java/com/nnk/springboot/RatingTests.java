@@ -24,7 +24,7 @@ public class RatingTests {
 	private RatingRepository ratingRepository;
 
 	@Test
-	public void ratingTest() {
+	public void testSave() {
 		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
 
 		// Save
@@ -34,17 +34,35 @@ public class RatingTests {
 		Assert.assertNotNull(rating.getId());
 		//Asserts that a condition is true.
 		Assert.assertTrue(rating.getOrderNumber() == 10);
+	}
+
+	@Test
+	public void testUpdate() {
+		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+		rating = ratingRepository.save(rating);
 
 		// Update
 		rating.setOrderNumber(20);
 		rating = ratingRepository.save(rating);
 		//Asserts that a condition is true.
 		Assert.assertTrue(rating.getOrderNumber() == 20);
+	}
+
+	@Test
+	public void testFind() {
+		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+		rating = ratingRepository.save(rating);
 
 		// Find
 		List<Rating> listResult = ratingRepository.findAll();
 		//Asserts that a condition is true.
 		Assert.assertTrue(listResult.size() > 0);
+	}
+
+	@Test
+	public void testDelete() {
+		Rating rating = new Rating("Moodys Rating", "Sand PRating", "Fitch Rating", 10);
+		rating = ratingRepository.save(rating);
 
 		// Delete
 		Integer id = rating.getId();

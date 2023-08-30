@@ -24,7 +24,7 @@ public class RuleTests {
 	private RuleNameRepository ruleNameRepository;
 
 	@Test
-	public void ruleTest() {
+	public void testSave() {
 		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
 
 		// Save
@@ -34,17 +34,35 @@ public class RuleTests {
 		Assert.assertNotNull(rule.getId());
 		//Asserts that a condition is true.
 		Assert.assertTrue(rule.getName().equals("Rule Name"));
+	}
+
+	@Test
+	public void testUpdate() {
+		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		rule = ruleNameRepository.save(rule);
 
 		// Update
 		rule.setName("Rule Name Update");
 		rule = ruleNameRepository.save(rule);
 		//Asserts that a condition is true.
 		Assert.assertTrue(rule.getName().equals("Rule Name Update"));
+	}
+
+	@Test
+	public void testFind() {
+		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		rule = ruleNameRepository.save(rule);
 
 		// Find
 		List<RuleName> listResult = ruleNameRepository.findAll();
 		//Asserts that a condition is true.
 		Assert.assertTrue(listResult.size() > 0);
+	}
+
+	@Test
+	public void testDelete() {
+		RuleName rule = new RuleName("Rule Name", "Description", "Json", "Template", "SQL", "SQL Part");
+		rule = ruleNameRepository.save(rule);
 
 		// Delete
 		Integer id = rule.getId();

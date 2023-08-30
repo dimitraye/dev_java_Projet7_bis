@@ -31,5 +31,5 @@ public interface IRuleNameService {
    * Delete a ruleName.
    * @param
    */
-  void delete(RuleName ruleName);
+  void delete(Integer id);
 }

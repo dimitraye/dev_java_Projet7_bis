@@ -26,7 +26,7 @@ public class BidTests {
 	private BidListRepository bidListRepository;
 
 	@Test
-	public void bidListTest() {
+	public void testSave() {
 		BidList bid = new BidList("Account Test", "Type Test", 10d);
 
 		// Save
@@ -37,6 +37,13 @@ public class BidTests {
 		// The assertEquals() method check that two objects are equal.
 		// If they are not, an AssertionError without a message is thrown.
 		Assert.assertEquals(bid.getBidQuantity(), 10d, 10d);
+	}
+
+	@Test
+	public void testUpdate() {
+		BidList bid = new BidList("Account Test", "Type Test", 10d);
+		// Save
+		bid = bidListRepository.save(bid);
 
 		// Update
 		bid.setBidQuantity(20d);
@@ -45,11 +52,27 @@ public class BidTests {
 		// The assertEquals() method check that two objects are equal.
 		// If they are not, an AssertionError without a message is thrown.
 		Assert.assertEquals(bid.getBidQuantity(), 20d, 20d);
+	}
+
+	@Test
+	public void testFind() {
+		BidList bid = new BidList("Account Test", "Type Test", 10d);
+
+		// Save
+		bid = bidListRepository.save(bid);
 
 		// Find
 		List<BidList> listResult = bidListRepository.findAll();
 		//Asserts that a condition is true.
 		Assert.assertTrue(listResult.size() > 0);
+	}
+
+	@Test
+	public void testDelete() {
+		BidList bid = new BidList("Account Test", "Type Test", 10d);
+
+		// Save
+		bid = bidListRepository.save(bid);
 
 		// Delete
 		Integer id = bid.getBidListId();
