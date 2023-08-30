@@ -2,17 +2,17 @@ package com.nnk.springboot.services;
 
 import com.nnk.springboot.domain.BidList;
 import com.nnk.springboot.repositories.BidListRepository;
-import java.util.List;
-import java.util.Optional;
-import org.springframework.beans.factory.annotation.Autowired;
+import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-//TODO : Ajouter des commentaires pour les annotations
+import java.util.List;
+import java.util.Optional;
+
+@AllArgsConstructor
 @Service
 public class BidListServiceImpl implements IBidListService{
 
-  @Autowired
-  BidListRepository bidListRepository;
+  private final BidListRepository bidListRepository;
 
   @Override
   public BidList save(BidList bidList) {

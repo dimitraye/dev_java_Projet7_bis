@@ -25,7 +25,7 @@ public class CurvePointTests {
 	private CurvePointRepository curvePointRepository;
 
 	@Test
-	public void curvePointTest() {
+	public void testSave() {
 		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
 
 		// Save
@@ -35,17 +35,35 @@ public class CurvePointTests {
 		Assert.assertNotNull(curvePoint.getId());
 		//Asserts that a condition is true.
 		Assert.assertTrue(curvePoint.getCurveId() == 10);
+	}
+
+	@Test
+	public void testUpdate() {
+		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+		curvePoint = curvePointRepository.save(curvePoint);
 
 		// Update
 		curvePoint.setCurveId(20);
 		curvePoint = curvePointRepository.save(curvePoint);
 		//Asserts that a condition is true.
 		Assert.assertTrue(curvePoint.getCurveId() == 20);
+	}
+
+	@Test
+	public void testFind() {
+		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+		curvePoint = curvePointRepository.save(curvePoint);
 
 		// Find
 		List<CurvePoint> listResult = curvePointRepository.findAll();
 		//Asserts that a condition is true.
 		Assert.assertTrue(listResult.size() > 0);
+	}
+
+	@Test
+	public void testDelete() {
+		CurvePoint curvePoint = new CurvePoint(10, 10d, 30d);
+		curvePoint = curvePointRepository.save(curvePoint);
 
 		// Delete
 		Integer id = curvePoint.getId();
@@ -54,5 +72,4 @@ public class CurvePointTests {
 		//Asserts that a condition is false.
 		Assert.assertFalse(curvePointList.isPresent());
 	}
-
 }

@@ -31,5 +31,5 @@ public interface ITradeService {
    * Delete a trade.
    * @param
    */
-  void delete(Trade trade);
+  void delete(Integer id);
 }

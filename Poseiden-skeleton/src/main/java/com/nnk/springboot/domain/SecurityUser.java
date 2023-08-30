@@ -11,9 +11,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 /**
  * Classe servant à gérer l'authentification avec Spring Security
  */
-//TODO : Ajouter des commentaires pour expliquer la classe
-
-
 public class SecurityUser implements UserDetails {
 
   private final User user;

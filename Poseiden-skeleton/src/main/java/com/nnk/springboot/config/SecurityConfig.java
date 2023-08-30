@@ -1,7 +1,7 @@
 package com.nnk.springboot.config;
 
-import com.nnk.springboot.services.JpaUserDetailsService;
-import org.springframework.beans.factory.annotation.Autowired;
+import com.nnk.springboot.services.UserDetailsServiceImpl;
+import lombok.AllArgsConstructor;
 import org.springframework.boot.autoconfigure.security.servlet.PathRequest;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -12,30 +12,24 @@ import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
 
-//
+@AllArgsConstructor
 @Configuration
-//
 @EnableWebSecurity
-//
 @EnableMethodSecurity
-//
 public class SecurityConfig {
 
-  @Autowired
-  JpaUserDetailsService jpaUserDetailsService;
+  private final UserDetailsServiceImpl userDetailsServiceImpl;
 
-  @Autowired
-  LoginSuccessHandler loginSuccessHandler;
+  private final LoginSuccessHandler loginSuccessHandler;
 
 
-  //
   @Bean
   SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
     http
-        //Accès à H2
-        .csrf(csrf -> csrf.ignoringAntMatchers("/h2-console/**"))
-        //Auhorisations d'accès aux requêtes
-        .authorizeRequests( auth -> auth
+      //Accès à H2
+      .csrf(csrf -> csrf.ignoringAntMatchers("/h2-console/**"))
+            //Auhorisations d'accès aux requêtes
+            .authorizeRequests( auth -> auth
             .antMatchers("/h2-console/**").permitAll()
             .antMatchers("/").permitAll()// acces à la page avant login
             .antMatchers("/user/*").hasRole("ADMIN")// acces au formulaire de signup
@@ -46,8 +40,7 @@ public class SecurityConfig {
             .anyRequest().authenticated()
         )
         //Gestion de l'authentification de user JPA Spring security
-        .userDetailsService(jpaUserDetailsService)
-        //
+        .userDetailsService(userDetailsServiceImpl)
         .headers(headers -> headers.frameOptions().sameOrigin())
         //Authentification par formulaire
         .formLogin()
@@ -66,8 +59,10 @@ public class SecurityConfig {
     return http.build();
   }
 
+  /**
+   * Permet de cripter le mot de passe
+   * */
   @Bean
-  //Permet de cripter le mot de passe
   PasswordEncoder passwordEncoder() {
     return new BCryptPasswordEncoder();
   }

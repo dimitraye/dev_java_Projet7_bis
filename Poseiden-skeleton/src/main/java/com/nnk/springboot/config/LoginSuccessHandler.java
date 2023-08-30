@@ -11,12 +11,15 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.web.authentication.SavedRequestAwareAuthenticationSuccessHandler;
 import org.springframework.stereotype.Component;
 
+/**
+ * Manage what happen when login is succesfull
+ * */
 @Component
 public class LoginSuccessHandler extends SavedRequestAwareAuthenticationSuccessHandler {
 
   @Override
   public void onAuthenticationSuccess(HttpServletRequest request, HttpServletResponse response,
-                                      Authentication authentication) throws ServletException, IOException {
+                                      Authentication authentication) throws IOException {
 
     SecurityUser userDetails = (SecurityUser) authentication.getPrincipal();
 
